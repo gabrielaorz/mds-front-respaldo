@@ -1,0 +1,72 @@
+<div class="container-fluid">
+  <div class="row">
+    <app-dashboard-sidebar></app-dashboard-sidebar>
+
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 mt-5">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Gestion de alertamientos</h1>
+        <!-- <div class="btn-toolbar mb-2 mb-md-0">
+          <!-- <div class="btn-group me-2">
+            <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+          <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+            Filtrar por estatus
+          </button>
+        </div> -->
+
+      <!-- <div class="btn-group" role="group" aria-label="Basic example">
+          <button type="button" class="btn btn-secondary" (click)="onFindAll()">Todos</button>
+          <button type="button" class="btn btn-secondary" (click)="onFindActive()">Activo</button>
+          <button type="button" class="btn btn-secondary" (click)="onFindInactive()">Inactivo</button>
+      </div> -->
+
+      <div class="btn-group btn-group-toggle" data-toggle="buttons">
+        <label class="btn btn-outline-primary">
+            <input type="radio" name="options" id="optionTodos" checked (click)="onFindAll()"> Todos
+        </label>
+        <label class="btn btn-outline-primary">
+            <input type="radio" name="options" id="optionActivos"  (click)="onFindActive()"> Activos
+        </label>
+        <label class="btn btn-outline-primary">
+            <input type="radio" name="options" id="optionInactivos" (click)="onFindInactive()"> Inactivos
+        </label>
+      </div>
+
+      </div>
+
+      <h3>Reglas activas e inactivas</h3>
+      <div class="table-responsive">
+        <table class="table table-striped table-sm">
+          <thead>
+            <tr>
+              <th scope="col">Id</th>
+              <th scope="col">Descripcion</th>
+              <th scope="col">Vigencia inicio</th>
+              <th scope="col">Vigencia fin</th>
+              <th scope="col">Empleado</th>
+              <th scope="col">Area</th>
+              <th scope="col">Modificar estatus</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let alert of alerts">
+              <td>{{alert.id}}</td>
+              <td>
+                <p><b>Host: </b> {{alert.host}}<br/>
+                   <b>Sensor: </b> {{alert.sensor}}<br/>
+                   <b>Dispositivo: </b> {{alert.dispositivo}}<br/>
+                   <b>Estatus:  </b>{{alert.estatus}}<br/>
+                   <b>Justificacion:  </b><br/>{{alert.justificacion}}</p>
+              </td>
+              <td>{{alert.vigenciaInicio}}</td>
+              <td>{{alert.vigencia}}</td>
+              <td>{{alert.empleado}}</td>
+              <td>{{alert.area}}</td>
+              <td><app-switch-confirmation idAlert="{{alert.id}}" checked="{{alert.estatus===1?true:undefined}}" enabled="{{alert.estatus===1?true:undefined}}" (alertActivation)="onAlertActivated(alert.id)"></app-switch-confirmation></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div [ngClass]="error ? 'alert alert-danger': 'alert alert-primary'" *ngIf="message">{{message}}</div>
+    </main>
+  </div>
+</div>
